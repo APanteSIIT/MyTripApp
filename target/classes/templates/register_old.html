@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <title>login</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="" id="loginModal">
+                <div class="modal-body">
+                    <div class="well">
+                        <ul class="nav nav-tabs">
+                            <li>Create Account</li>
+
+                        </ul>
+                        <div>&nbsp;</div>
+                            <div class="container" id="create">
+                                <form id="tab"  method="POST" th:action="@{/register}" th:object="${user}" autocomplete="off">
+                                    <label>Username</label>
+                                    <input type="text" name="username" th:field="*{username}" class="input-xlarge" title="Username must have between 5 and 20 characters" required="required" >
+                                    <td style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username must have between 5 and 20 characters.</td>
+                                    <label>First Name</label>
+                                    <input type="text" th:field="*{firstName}" class="input-xlarge">
+                                    <label>Last Name</label>
+                                    <input type="text" th:field="*{lastName}" class="input-xlarge">
+                                    <label>password</label>
+                                    <input type="password" name="password" th:field="*{password}" class="input-xlarge" title="Must contain at least one number and one uppercase and lowercase letter,
+                               and at least 8 or more characters" required="required"/>
+                                    <td style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Must contain at least one number and one uppercase and lowercase letter,
+                                        and at least 8 or more characters.</td>
+
+                                    <div>
+                                        <button class="btn btn-primary">Create Account</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

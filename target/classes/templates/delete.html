@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+  .fieldset{
+  background-color:#D7E1E9;
+  max-width:1100px;
+  max-height:100%;
+  padding:16px;
+}
+input[type=submit] {
+  width: 7%;
+  background-color: #FF0000;
+  color: white;
+  padding: 10px 5px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+        <h2 align="center">Delete trip</h2><br><br>
+    <fieldset class="fieldset">
+            <form class="form-horizontal" method="post" th:action="@{/delete/{tripId}(tripId=${id})}" th:object="${trip}">
+                <p>Are you sure that you what to delete this trip <b><span th:text="*{tripname}"></span></b>?</p>
+                <input type="hidden" class="form-control" name="ana" th:value="*{tripId}"/>
+                <input type="submit" value="delete"></input>
+                <button type="button" style="color: white" class="btn btn-light"><a th:href="@{/trips-page}">Go back to trips page</a></button>
+            </form>
+    </fieldset>
+
+</div>
+</body>
+</html>

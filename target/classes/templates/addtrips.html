@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Trips theme</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+	.centerImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+	div.polaroid {
+  width: 100%;
+
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+	margin-left: auto;
+ margin-right: auto;
+}
+
+div.container-center {
+  text-align: center;
+  padding: 10px 20px;
+}
+</style>
+
+    <script>
+    function myFunction1() {
+        var x = document.getElementById("file1").value;
+        document.getElementById("photo1").innerHTML = x;
+}
+</script>
+    <script>
+    function myFunction2() {
+        var x = document.getElementById("file2").value;
+        document.getElementById("photo2").innerHTML = x;
+}
+</script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <p class="navbar-brand">Hello, <span th:text="${username}"></span></p>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a th:href="@{/trips-page}">TRIPS</a></li>
+        <li><a th:href="@{/profile}">PROFILE</a></li>
+        <li><a th:href="@{/logout}">LOG OUT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+   
+<div class="container">
+<fieldset class="fieldset">
+  <h2 align="center">New Trip details</h2><br><br>
+  <form class="form-horizontal" method="POST" th:action="@{/addtrips}" th:object="${trip}" enctype="multipart/form-data" autocomplete="off">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="tripname">Trip name:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" th:field="*{tripname}" id="tripname" placeholder="Enter trip name" required>
+      </div>
+    </div>
+	
+    <div class="form-group">
+      <label class="control-label col-sm-2"  for="startDate">Start date:</label>
+      <div class="col-sm-5"> 
+		<div class='input-group date'>	  
+            <input type="date" class="form-control" id="startDate" th:field="*{startDate}" placeholder="Enter start date" data-date-format="yyyy/mm/dd" />
+		    <span class="input-group-addon">
+                   <span class="glyphicon glyphicon-calendar">
+                   </span>
+               </span>
+            </div>
+          <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Start date Error</p>
+		<script>
+		 $(function() {
+$( "#datepicker" ).datepicker();
+});
+		</script>
+      </div>
+    </div>
+
+	<div class="form-group">
+      <label class="control-label col-sm-2"  for="startDate">End date:</label>
+      <div class="col-sm-5">
+		<div class='input-group date'>	  
+        <input type="date" class="form-control" id="endDate" th:field="*{endDate}" placeholder="Enter end date" data-date-format="yyyy/mm/dd"/>
+			            <span class="input-group-addon">
+                   <span class="glyphicon glyphicon-calendar">
+                   </span>
+               </span>
+            <td th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">End date Error</td>
+		</div>
+		<script>
+		 $(function() {
+$( "#datepicker" ).datepicker();
+});
+		</script>
+      </div>
+    </div>
+	
+	<div class="form-group">
+      <label class="control-label col-sm-2" for="impressions">Impressions:</label>
+      <div class="col-sm-5">
+        <textarea class="form-control" th:field="*{impressions}" id="impressions" rows="4" placeholder="add some text..."/></textarea>
+      </div>
+        <p th:if="${#fields.hasErrors('impressions')}" th:errors="*{impressions}">Impressions text to long</p>
+    </div>
+	
+	<div class="form-group">
+      <label class="control-label col-sm-2" for="location">Location:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" th:field="*{location}" id="location" placeholder="Enter location"/>
+      </div>
+    </div>
+	
+	 <div class="form-group">
+      <label class="control-label col-sm-2" for="title1">Title image 1:</label>
+      <div class="col-sm-5">
+       <input type="text" class="form-control" name="title1" th:field="*{title1}" placeholder="Enter title" id="title1"/>
+	  </div>
+	 </div>
+    <div class="form-group">
+	<label class="control-label col-sm-2" for="desc1">Description :</label>
+	  <div class="col-sm-5">
+       <input type="text" class="form-control" name="description1" th:field="*{description1}" placeholder="Enter description" id="desc1"/>
+	</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 <label class="control-label col-sm-2" for="file1">Choose image 1:</label>
+      <div class="col-sm-5">
+       <input type="file" name="files" id="file1" onchange="myFunction1()"/><br/>
+          <p id="photo1"></p>
+
+	   	 </div>
+	 </div>
+	
+	 <div class="form-group">
+      <label class="control-label col-sm-2" for="title2">Title image 2:</label>
+      <div class="col-sm-5">
+       <input type="text" class="form-control" name="title2" th:field="*{title2}" placeholder="Enter title" id="title2"/>
+	  </div>
+	 </div>
+	 
+    <div class="form-group">
+	<label class="control-label col-sm-2" for="desc2">Description :</label>
+	  <div class="col-sm-5">
+       <input type="text" class="form-control" name="description2" th:field="*{description2}" placeholder="Enter description" id="desc2"/>
+	</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 <label class="control-label col-sm-2" for="file2">Choose image 2:</label>
+      <div class="col-sm-5">
+      <input type="file" name="files" id="file2" onchange="myFunction2()"/><br/>
+          <p id="photo2"></p>
+
+
+	  </div>
+	 </div>
+	
+	
+	
+   <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default" onclick="GetInputValue();">Submit</button>
+      </div>
+    </div>
+ </form>
+  </fieldset>
+</div>
+   
+</head>
+
+
+</body>
+</html>
+

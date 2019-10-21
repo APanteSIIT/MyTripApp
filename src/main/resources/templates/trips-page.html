@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Trips theme</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+.centerImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+div.polaroid {
+  width: 100%;
+
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+	margin-left: auto;
+ margin-right: auto;
+}
+
+div.container-center {
+  text-align: center;
+  padding: 10px 20px;
+}
+.form-inline{
+    margin:15px 15px;
+}
+
+
+    </style>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <p class="navbar-brand">Hello, <span th:text="${username}"></span></p>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/trips-page}">TRIPS</a></li>
+                <li><a th:href="@{/profile}">PROFILE</a></li>
+                <li><a th:href="@{/logout}">LOG OUT</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>Memories are for a life time</h2>
+    <div>&nbsp;</div>
+    <p>Choose trip to see the details</p>
+    <form class="form-inline" th:action="@{/trips-page}" th:object="${tripsById}" method="get">
+        <div class="form-group col-md">
+            <label for="mySelect">Trip name</label>
+
+
+            <select class="form-control" onchange="window.location.href='/trips-page?tripId='+this.value" id="mySelect">
+                <option th:each="trip: ${tripsById}"
+                        th:value="${trip.tripId}"
+                        th:text="${trip.tripname}"
+                        th:selected="${trip.tripId == currentId}"></option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-default"><a th:href="@{/edit/{tripId}(tripId=${id})}">Edit</a></button>
+        <button type="button" class="btn btn-info"><a th:href="@{/addtrips}">Add</a></button>
+        <button type="button" class="btn btn-danger"><a th:href="@{/delete/{tripId}(tripId=${id})}">Delete</a></button>
+
+        <div>&nbsp;</div>
+
+        <div class="form-group">
+            <label for="comment">Impressions </label>
+            <textarea type="text" class="form-control" rows="5" cols="150" th:text="${trip.impressions}"
+                      id="comment"></textarea>
+        </div>
+        <div>&nbsp;</div>
+        <div class="container">
+            <div>
+                <div class="form-inline">
+                    <label>Dates</label>
+                    <input type="text" class="form-control" th:value="${trip.startDate}" size="20">
+                    <input type="text" class="form-control" th:value="${trip.endDate}" size="20">
+                    <label>Location </label>
+                    <input type="text" class="form-control" th:value="${trip.location}" size="20">
+
+                </div>
+            </div>
+        </div>
+        <div>&nbsp;</div>
+        <div class="container">
+            <h4>Photos</h4>
+            <div class="col-md-6">
+                <div class="polaroid">
+                    <div class="container-center">
+                        <p><span th:text="${trip.title1}" style="font-weight: bold"></span></p>
+                    </div>
+                    <img th:src="@{/files/{image}(image=${UUID1})}" class="centerImage" id="image1" width="425"
+                         height="350" alt="image1"/>
+                    <div class="container-center">
+                        <p><span th:text="${trip.description1}"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="polaroid">
+                    <div class="container-center">
+                        <p><span th:text="${trip.title2}" style="font-weight: bold"></span></p>
+                    </div>
+                    <img th:src="@{/files/{image}(image=${UUID2})}" alt="image2" id="image2" height="350" width="425"
+                         class="centerImage"/>
+                    <div class="container-center">
+                        <p><span th:text="${trip.description2}"></span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+</body>
+</html>

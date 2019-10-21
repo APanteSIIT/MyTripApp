@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Trips theme</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+	.centerImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+	div.polaroid {
+  width: 100%;
+
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+	margin-left: auto;
+ margin-right: auto;
+}
+
+div.container-center {
+  text-align: center;
+  padding: 10px 20px;
+}
+</style>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <p class="navbar-brand">Hello, <span th:text="${username}"></span></p>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a th:href="@{/trips-page}">TRIPS</a></li>
+        <li><a th:href="@{/profile}">PROFILE</a></li>
+        <li><a th:href="@{/logout}">LOG OUT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <fieldset class="fieldset">
+    <h2 align="center">Profile details</h2><br><br>
+    <form class="form-horizontal" method="POST" th:action="@{/profile}" th:object="${user}"  autocomplete="off">
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="firstName">First name:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" th:value="${firstName}" id="firstName" >
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="lname">Last name:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" th:value="${lastName}" id="lname">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="uname">Username:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" th:value="${username}" id="uname" >
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Password :</label>
+        <div class="col-sm-5">
+          <input type="password" class="form-control" th:value="${password}" id="pwd">
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="city">City :</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" th:value="${city}" placeholder="Enter city" id="city" autocomplete="off">
+          <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" align="left" style="color:red">City Error</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="adrs">Address :</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" th:value="${address}" placeholder="Enter address" id="adrs" autocomplete="off">
+          <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" align="left" style="color:red">Address Error</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="Phone">Phone :</label>
+        <div class="col-sm-5">
+          <input type="tel" class="form-control" name="phone" th:value="${phone}" placeholder="Enter phone" id="phone" autocomplete="off"><br/>
+          <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" align="left" style="color:red">Phone Error</p>
+        </div>
+      </div>
+
+
+
+<!--      <div class="form-group">-->
+<!--        <div class="col-sm-offset-2 col-sm-10">-->
+<!--          <button type="submit" class="btn btn-default">Submit</button>-->
+<!--        </div>-->
+<!--      </div>-->
+    </form>
+  </fieldset>
+</div>
+
+</head>
+
+
+</body>
+</html>
+
